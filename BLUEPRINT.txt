@@ -1,0 +1,54 @@
+drone-swarm-mesh/
+│
+├── .github/                             # CI/CD for swarm logic verification
+│   └── workflows/
+│       ├── test-consensus.yml           # Tests p2p discovery and collision logic
+│       └── build-drone-image.yml        # Builds the lightweight Go daemon container
+│
+├── swarm_simulator/                     # Python + FastAPI: The Global Airspace Physics
+│   ├── app/
+│   │   ├── physics/
+│   │   │   └── spatial_grid.py          # Tracks "True" positions to detect collisions
+│   │   ├── obstacles/
+│   │   │   └── narrow_gap.py            # Defines 3D boundaries for swarm challenges
+│   │   └── main.py                      # WebSocket server for visualizer + UDP relay
+│   ├── requirements.txt
+│   └── Dockerfile
+│
+├── drone_agent/                         # Go: The Autonomous Brain (1 container per drone)
+│   ├── cmd/
+│   │   └── brain/
+│   │       └── main.go                  # Main loop: Listen to neighbors, calculate, move
+│   ├── internal/
+│   │   ├── mesh/
+│   │   │   ├── discovery.go             # UDP Broadcaster to find nearby "peers"
+│   │   │   └── gossip.go                # P2P exchange of current Position and Velocity
+│   │   ├── behavior/
+│   │   │   ├── boids.go                 # Flocking: Separation, Alignment, and Cohesion
+│   │   │   └── avoidance.go             # ORCA/RVO logic for decentralized collision avoidance
+│   │   └── flight_controller/
+│   │       └── state.go                 # Local PID loop for 3D translation
+│   ├── go.mod
+│   └── Dockerfile                       # Minimal binary (approx. 15-20MB)
+│
+├── swarm_visualizer/                    # React + TypeScript: The Tactical HUD
+│   ├── src/
+│   │   ├── components/
+│   │   │   ├── Airspace3D.tsx           # Three.js canvas rendering 100+ drone agents
+│   │   │   ├── ConnectivityGraph.tsx    # Visualizes the live P2P mesh links
+│   │   │   └── SwarmMetrics.tsx         # HUD showing average velocity and inter-drone distance
+│   │   ├── hooks/
+│   │   │   └── useSwarmData.ts          # Connects to the simulator's global state feed
+│   │   ├── App.tsx
+│   │   └── index.tsx
+│   ├── package.json
+│   └── Dockerfile
+│
+├── orchestration/                       # Scaling the swarm
+│   ├── docker-compose.yaml              # Spawns the simulator and a sample swarm (e.g., 10 agents)
+│   └── scale_swarm.sh                   # Script to dynamically spin up 100+ drone containers
+├── Makefile
+└── README.md
+
+
+
