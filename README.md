@@ -31,7 +31,7 @@ Drone Swarm Mesh is a highly scalable, containerized simulation environment desi
 
 1. Clone the repository:
    ```bash
-   git clone [https://github.com/yourusername/drone-swarm-mesh.git](https://github.com/yourusername/drone-swarm-mesh.git)
+   git clone https://github.com/mtepenner/drone-swarm-mesh.git
    cd drone-swarm-mesh
    ```
 
