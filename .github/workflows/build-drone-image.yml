@@ -1,0 +1,15 @@
+name: Build Drone Image
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build drone agent image
+        run: docker build -t drone-swarm-mesh:latest ./drone_agent

@@ -1,0 +1,33 @@
+services:
+  swarm-simulator:
+    build:
+      context: ../swarm_simulator
+    environment:
+      SWARM_SIM_UDP_HOST: 0.0.0.0
+      SWARM_SIM_UDP_PORT: 9010
+    ports:
+      - "8000:8000"
+      - "9010:9010/udp"
+
+  swarm-visualizer:
+    build:
+      context: ../swarm_visualizer
+    environment:
+      VITE_SWARM_WS_URL: ws://localhost:8000/ws
+    ports:
+      - "3000:3000"
+    depends_on:
+      - swarm-simulator
+
+  drone-agent:
+    build:
+      context: ../drone_agent
+    environment:
+      DISCOVERY_PORT: 10010
+      GOSSIP_PORT: 10020
+      SWARM_SIMULATOR_UDP_ADDR: swarm-simulator:9010
+      TICK_MS: 200
+    depends_on:
+      - swarm-simulator
+    deploy:
+      replicas: 10

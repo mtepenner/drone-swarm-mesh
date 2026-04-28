@@ -47,6 +47,13 @@ Drone Swarm Mesh is a highly scalable, containerized simulation environment desi
    docker-compose up -d
    ```
 
+4. Local validation without Docker:
+   ```bash
+   python -m compileall swarm_simulator/app
+   cd drone_agent && go test ./...
+   cd ../swarm_visualizer && npm install && npm run build
+   ```
+
 ## 💻 Usage
 
 * **Access the Tactical HUD:** Once the containers are running, navigate to `http://localhost:3000` (or your configured port) to access the React-based visualizer.
@@ -54,6 +61,7 @@ Drone Swarm Mesh is a highly scalable, containerized simulation environment desi
   ```bash
   ./orchestration/scale_swarm.sh 100
   ```
+* **Simulator endpoints:** The FastAPI simulator exposes `GET /health`, `GET /snapshot`, and `WS /ws` on port `8000`.
 
 ## 📂 Project Structure
 * `/swarm_simulator`: Contains the Python/FastAPI code for global airspace physics and WebSocket UDP relay.
@@ -67,3 +75,4 @@ Contributions are welcome! Please feel free to submit a Pull Request. To run the
 
 ## 📄 License
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
