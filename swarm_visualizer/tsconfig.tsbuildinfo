@@ -1,1 +1,0 @@
-{"root":["./src/app.tsx","./src/index.tsx","./src/vite-env.d.ts","./src/components/airspace3d.tsx","./src/components/connectivitygraph.tsx","./src/components/swarmmetrics.tsx","./src/hooks/useswarmdata.ts"],"version":"5.9.3"}
